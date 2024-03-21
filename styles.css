@@ -1,0 +1,62 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-top: 30px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.card {
+  width: 200px;
+  height: 60px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  transition: transform 0.3s ease-in-out;
+  position: relative; /* Position relative for marker */
+}
+
+.card p {
+  margin: 0;
+  font-size: 18px;
+}
+
+.card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+.card::before {
+
+    content: attr(data-index); /* Use data attribute for marker value */
+  counter-increment: none; /* Remove counter-increment */
+  position: absolute; /* Position the marker */
+  top: -20px; /* Adjust position */
+  left: -20px; /* Adjust position */
+  background-color: #007bff; /* Marker background color */
+  color: #fff; /* Marker text color */
+  width: 20px; /* Marker width */
+  height: 20px; /* Marker height */
+  border-radius: 50%; /* Circular shape */
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+
+}
