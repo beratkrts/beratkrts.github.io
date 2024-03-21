@@ -1,5 +1,8 @@
 let dragged;
+let touchStartX;
 let touchStartY;
+let offsetX;
+let offsetY;
 
 document.addEventListener("dragstart", function(event) {
   dragged = event.target;
@@ -28,27 +31,33 @@ document.addEventListener("drop", function(event) {
 });
 
 document.addEventListener("touchstart", function(event) {
-  touchStartY = event.touches[0].clientY;
+  if (event.target.classList.contains('card')) {
+    dragged = event.target;
+    const rect = dragged.getBoundingClientRect();
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+    offsetX = touchStartX - rect.left;
+    offsetY = touchStartY - rect.top;
+  }
 });
 
 document.addEventListener("touchmove", function(event) {
   event.preventDefault();
-  const touchMoveY = event.touches[0].clientY;
-  const touchDirection = touchMoveY - touchStartY;
-  if (Math.abs(touchDirection) > 10) {
-    dragged.style.transform = `translateY(${touchDirection}px)`;
-  }
+  if (!dragged) return;
+  const newX = event.touches[0].clientX - offsetX;
+  const newY = event.touches[0].clientY - offsetY;
+  dragged.style.transform = `translate(${newX}px, ${newY}px)`;
 });
 
 document.addEventListener("touchend", function(event) {
-  const target = event.target.closest('.card');
+  if (!dragged) return;
+  const target = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY).closest('.card');
   if (!target || target === dragged) return;
   const targetContainer = target.closest('.card-container');
   const draggedContainer = dragged.closest('.card-container');
   if (targetContainer === draggedContainer) {
     const targetRect = target.getBoundingClientRect();
-    const touchEndY = event.changedTouches[0].clientY;
-    const shouldMoveDown = touchEndY > (targetRect.top + targetRect.height / 2);
+    const shouldMoveDown = event.changedTouches[0].clientY > (targetRect.top + targetRect.height / 2);
     if (shouldMoveDown) {
       target.parentNode.insertBefore(dragged, target.nextSibling);
     } else {
