@@ -43,6 +43,8 @@ document.addEventListener("touchstart", function(event) {
       offsetY = touchStartY - rect.top;
       // Add transition effect
       dragged.style.transition = 'none';
+      // Store original position
+      originalPosition = { left: rect.left, top: rect.top };
     }, 500); // Adjust the duration as needed
   }
 });
@@ -65,8 +67,8 @@ document.addEventListener("touchmove", function(event) {
   clearTimeout(pressTimer);
   if (!dragged) return;
   const containerRect = dragged.closest('.card-container').getBoundingClientRect();
-  const newX = event.touches[0].clientX - containerRect.left - offsetX;
-  const newY = event.touches[0].clientY - containerRect.top - offsetY;
+  const newX = event.touches[0].clientX - offsetX;
+  const newY = event.touches[0].clientY - offsetY - window.pageYOffset;
   dragged.style.transform = `translate(${newX}px, ${newY}px)`;
 });
 
