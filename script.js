@@ -3,6 +3,8 @@ let touchStartX;
 let touchStartY;
 let offsetX;
 let offsetY;
+let pressTimer;
+let originalPosition;
 
 document.addEventListener("dragstart", function(event) {
   dragged = event.target;
@@ -32,52 +34,40 @@ document.addEventListener("drop", function(event) {
 
 document.addEventListener("touchstart", function(event) {
   if (event.target.classList.contains('card')) {
-    dragged = event.target;
-    const rect = dragged.getBoundingClientRect();
-    touchStartX = event.touches[0].clientX;
-    touchStartY = event.touches[0].clientY;
-    offsetX = touchStartX - rect.left;
-    offsetY = touchStartY - rect.top;
-    // Add transition effect
-    dragged.style.transition = 'none';
+    pressTimer = setTimeout(() => {
+      dragged = event.target;
+      const rect = dragged.getBoundingClientRect();
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+      offsetX = touchStartX - rect.left;
+      offsetY = touchStartY - rect.top;
+      // Add transition effect
+      dragged.style.transition = 'none';
+    }, 500); // Adjust the duration as needed
   }
 });
 
-document.addEventListener("touchmove", function(event) {
-  event.preventDefault(); // Prevent default touch behavior (e.g., scrolling)
-  if (!dragged) return;
-
-  // Get the container's position relative to the viewport
-  const containerRect = dragged.closest('.card-container').getBoundingClientRect();
-
-  // Calculate the new position of the dragged element relative to the container
-  const newX = event.touches[0].clientX - containerRect.left - offsetX;
-  const newY = event.touches[0].clientY - containerRect.top - offsetY;
-
-  // Apply the new position
-  dragged.style.transform = `translate(${newX}px, ${newY}px)`;
-});
-
-
 document.addEventListener("touchend", function(event) {
+  clearTimeout(pressTimer);
   if (!dragged) return;
   const target = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY).closest('.card');
-  if (!target || target === dragged) return;
-  const targetContainer = target.closest('.card-container');
-  const draggedContainer = dragged.closest('.card-container');
-  if (targetContainer === draggedContainer) {
-    const targetRect = target.getBoundingClientRect();
-    const shouldMoveDown = event.changedTouches[0].clientY > (targetRect.top + targetRect.height / 2);
-    if (shouldMoveDown) {
-      target.parentNode.insertBefore(dragged, target.nextSibling);
-    } else {
-      target.parentNode.insertBefore(dragged, target);
-    }
-    updateMarkers(targetContainer);
+  if (!target || target === dragged) {
+    dragged.style.transform = `translate(${originalPosition.left}px, ${originalPosition.top}px)`;
   }
   // Reset transition
   dragged.style.transition = '';
   dragged.removeAttribute('style');
+  dragged = null;
+});
+
+document.addEventListener("touchmove", function(event) {
+  event.preventDefault(); // Prevent scrolling on touch devices
+  clearTimeout(pressTimer);
+  if (!dragged) return;
+  const containerRect = dragged.closest('.card-container').getBoundingClientRect();
+  const newX = event.touches[0].clientX - containerRect.left - offsetX;
+  const newY = event.touches[0].clientY - containerRect.top - offsetY;
+  dragged.style.transform = `translate(${newX}px, ${newY}px)`;
 });
 
 function updateMarkers(container) {
@@ -87,23 +77,6 @@ function updateMarkers(container) {
     card.setAttribute('data-index', markerValue);
     markerValue++;
   });
-}
-
-function submitOrder() {
-  const orderedItemsQuestion1 = getOrderedItems("#question1-container");
-  const orderedItemsQuestion2 = getOrderedItems("#question2-container");
-  console.log("Ordered Items for Question 1:", orderedItemsQuestion1);
-  console.log("Ordered Items for Question 2:", orderedItemsQuestion2);
-}
-
-function getOrderedItems(containerId) {
-  const container = document.querySelector(containerId);
-  const cards = container.querySelectorAll('.card p');
-  const orderedItems = [];
-  cards.forEach(card => {
-    orderedItems.push(card.innerText.trim());
-  });
-  return orderedItems;
 }
 
 updateMarkers(document.querySelector("#question1-container"));
