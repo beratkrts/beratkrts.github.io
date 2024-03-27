@@ -44,12 +44,20 @@ document.addEventListener("touchstart", function(event) {
 });
 
 document.addEventListener("touchmove", function(event) {
-  event.preventDefault();
+  event.preventDefault(); // Prevent default touch behavior (e.g., scrolling)
   if (!dragged) return;
-  const newX = event.touches[0].clientX - offsetX;
-  const newY = event.touches[0].clientY - offsetY;
+
+  // Get the container's position relative to the viewport
+  const containerRect = dragged.closest('.card-container').getBoundingClientRect();
+
+  // Calculate the new position of the dragged element relative to the container
+  const newX = event.touches[0].clientX - containerRect.left - offsetX;
+  const newY = event.touches[0].clientY - containerRect.top - offsetY;
+
+  // Apply the new position
   dragged.style.transform = `translate(${newX}px, ${newY}px)`;
 });
+
 
 document.addEventListener("touchend", function(event) {
   if (!dragged) return;
