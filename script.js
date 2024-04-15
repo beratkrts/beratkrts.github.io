@@ -1,5 +1,5 @@
 const phones = [
-   "Apple, 512 GB, 12 GB RAM, 50000 TL",
+  "Apple, 512 GB, 12 GB RAM, 50000 TL",
   "Apple, 256GB, 12 GB RAM, 50000 TL",
   "Apple, 512 GB, 8 GB RAM, 50000 TL",
   "Apple, 256 GB, 8 GB RAM, 50000 TL",
@@ -33,6 +33,7 @@ form.addEventListener('submit', function(event) {
   event.preventDefault();
   const selectedValues = new Set();
   let validSubmission = true;
+  const phoneRankings = [];
 
   for (let i = 0; i < phones.length; i++) {
     const input = document.getElementById(`phone${i}`);
@@ -44,12 +45,41 @@ form.addEventListener('submit', function(event) {
       break;
     } else {
       selectedValues.add(value);
+      phoneRankings.push(value); // Collect phone rankings
     }
   }
 
   if (validSubmission) {
-    // Here you can send the data to your server or perform any other action
-    console.log('Survey submitted successfully');
-    form.reset();
+    // Prepare form data
+    const formData = {
+      gender: document.getElementById('gender').value,
+      age: document.getElementById('age').value,
+      faculty: document.getElementById('faculty').value,
+      phoneRankings: phoneRankings // Add phone rankings to form data
+    };
+
+    // Send form data to server
+    fetch('/submit-survey', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
+    })
+    .then(data => {
+      console.log(data); // Log success message from the server
+      form.reset();
+    })
+    .catch(error => {
+      console.error('Error submitting survey:', error.message);
+      // Handle error - display a message to the user or perform any other action
+      alert('Error submitting survey. Please try again later.');
+    });
   }
 });
