@@ -1,10 +1,15 @@
 const express = require('express');
 const excel = require('exceljs');
+const cors = require('cors'); // Import the 'cors' middleware
 const app = express();
 const port = 3001;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+app.use(cors({
+  origin: 'https://beratkrts.github.io/' // Replace with your frontend URL
+}));
 
 // Array to store submitted survey data
 let surveyData = [];
