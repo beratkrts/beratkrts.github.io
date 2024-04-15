@@ -15,7 +15,7 @@ app.use(cors({
 let surveyData = [];
 
 // Route to handle form submissions
-app.post('/submit-survey', (req, res) => {
+app.post('https://beratkrts.github.io/submit-survey', (req, res) => {
   const formData = req.body;
 
   // Perform validation
