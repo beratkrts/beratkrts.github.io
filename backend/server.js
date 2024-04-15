@@ -5,7 +5,7 @@ const app = express();
 const port = 3001;
 
 // Middleware to parse JSON bodies
-app.use(express.json());
+app.use(bodyParser.json());
 
 app.use(cors({
   origin: 'https://beratkrts.github.io/' // Replace with your frontend URL
@@ -15,7 +15,7 @@ app.use(cors({
 let surveyData = [];
 
 // Route to handle form submissions
-app.post('https://beratkrts.github.io/submit-survey', (req, res) => {
+app.post('/submit-survey', (req, res) => {
   const formData = req.body;
 
   // Perform validation
