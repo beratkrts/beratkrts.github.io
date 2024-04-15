@@ -1,20 +1,20 @@
 const phones = [
-  "iPhone 13",
-  "Samsung Galaxy S21",
-  "Google Pixel 6",
-  "OnePlus 9 Pro",
-  "Xiaomi Mi 11",
-  "Sony Xperia 1 III",
-  "Huawei P40 Pro",
-  "LG Velvet",
-  "Motorola Edge+",
-  "Nokia 8.3",
-  "Oppo Find X3 Pro",
-  "Vivo X60 Pro+",
-  "Asus ROG Phone 5",
-  "Realme GT",
-  "Lenovo Legion Phone Duel 2",
-  "BlackBerry Key2"
+   "Apple, 512 GB, 12 GB RAM, 50000 TL",
+  "Apple, 256GB, 12 GB RAM, 50000 TL",
+  "Apple, 512 GB, 8 GB RAM, 50000 TL",
+  "Apple, 256 GB, 8 GB RAM, 50000 TL",
+  "Apple, 512 GB, 12 GB RAM, 80000 TL",
+  "Apple, 256GB, 12 GB RAM, 80000 TL",
+  "Apple, 512 GB, 8 GB RAM, 80000 TL",
+  "Apple, 256 GB, 8 GB RAM, 80000 TL",
+  "Samsung, 512 GB, 12 GB RAM, 50000 TL",
+  "Samsung, 256GB, 12 GB RAM, 50000 TL",
+  "Samsung, 512 GB, 8 GB RAM, 50000 TL",
+  "Samsung, 256 GB, 8 GB RAM, 50000 TL",
+  "Samsung, 512 GB, 12 GB RAM, 80000 TL",
+  "Samsung, 256GB, 12 GB RAM, 80000 TL",
+  "Samsung, 512 GB, 8 GB RAM, 80000 TL",
+  "Samsung, 256 GB, 8 GB RAM, 80000 TL"
 ];
 
 const form = document.getElementById('surveyForm');
