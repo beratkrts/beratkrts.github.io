@@ -1,85 +1,55 @@
-let dragged;
-let touchStartX;
-let touchStartY;
-let offsetX;
-let offsetY;
-let pressTimer;
-let originalPosition;
+const phones = [
+  "iPhone 13",
+  "Samsung Galaxy S21",
+  "Google Pixel 6",
+  "OnePlus 9 Pro",
+  "Xiaomi Mi 11",
+  "Sony Xperia 1 III",
+  "Huawei P40 Pro",
+  "LG Velvet",
+  "Motorola Edge+",
+  "Nokia 8.3",
+  "Oppo Find X3 Pro",
+  "Vivo X60 Pro+",
+  "Asus ROG Phone 5",
+  "Realme GT",
+  "Lenovo Legion Phone Duel 2",
+  "BlackBerry Key2"
+];
 
-document.addEventListener("dragstart", function(event) {
-  dragged = event.target;
+const form = document.getElementById('surveyForm');
+const phonesList = document.getElementById('phonesList');
+
+phones.forEach((phone, index) => {
+  const listItem = document.createElement('li');
+  listItem.innerHTML = `
+    <label for="phone${index}">${phone}</label>
+    <input type="number" id="phone${index}" name="phone${index}" min="1" max="16" required>
+  `;
+  phonesList.appendChild(listItem);
 });
 
-document.addEventListener("dragover", function(event) {
+form.addEventListener('submit', function(event) {
   event.preventDefault();
-});
+  const selectedValues = new Set();
+  let validSubmission = true;
 
-document.addEventListener("drop", function(event) {
-  event.preventDefault();
-  const target = event.target.closest('.card');
-  if (!target || target === dragged) return;
-  const targetContainer = target.closest('.card-container');
-  const draggedContainer = dragged.closest('.card-container');
-  if (targetContainer === draggedContainer) {
-    const targetRect = target.getBoundingClientRect();
-    const shouldMoveDown = event.clientY > (targetRect.top + targetRect.height / 2);
-    if (shouldMoveDown) {
-      target.parentNode.insertBefore(dragged, target.nextSibling);
+  for (let i = 0; i < phones.length; i++) {
+    const input = document.getElementById(`phone${i}`);
+    const value = parseInt(input.value);
+    
+    if (selectedValues.has(value)) {
+      alert('Please assign different numbers for each cellphone.');
+      validSubmission = false;
+      break;
     } else {
-      target.parentNode.insertBefore(dragged, target);
+      selectedValues.add(value);
     }
-    updateMarkers(targetContainer);
+  }
+
+  if (validSubmission) {
+    // Here you can send the data to your server or perform any other action
+    console.log('Survey submitted successfully');
+    form.reset();
   }
 });
-
-document.addEventListener("touchstart", function(event) {
-  if (event.target.classList.contains('card')) {
-    pressTimer = setTimeout(() => {
-      dragged = event.target;
-      const rect = dragged.getBoundingClientRect();
-      touchStartX = event.touches[0].clientX;
-      touchStartY = event.touches[0].clientY;
-      offsetX = touchStartX - rect.left;
-      offsetY = touchStartY - rect.top;
-      // Add transition effect
-      dragged.style.transition = 'none';
-      // Store original position
-      originalPosition = { left: rect.left, top: rect.top };
-    }, 500); // Adjust the duration as needed
-  }
-});
-
-document.addEventListener("touchend", function(event) {
-  clearTimeout(pressTimer);
-  if (!dragged) return;
-  const target = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY).closest('.card');
-  if (!target || target === dragged) {
-    dragged.style.transform = `translate(${originalPosition.left}px, ${originalPosition.top}px)`;
-  }
-  // Reset transition
-  dragged.style.transition = '';
-  dragged.removeAttribute('style');
-  dragged = null;
-});
-
-document.addEventListener("touchmove", function(event) {
-  event.preventDefault(); // Prevent scrolling on touch devices
-  clearTimeout(pressTimer);
-  if (!dragged) return;
-  const containerRect = dragged.closest('.card-container').getBoundingClientRect();
-  const newX = event.touches[0].clientX - offsetX;
-  const newY = event.touches[0].clientY - offsetY - window.pageYOffset;
-  dragged.style.transform = `translate(${newX}px, ${newY}px)`;
-});
-
-function updateMarkers(container) {
-  const cards = container.querySelectorAll('.card');
-  let markerValue = 1;
-  cards.forEach((card, index) => {
-    card.setAttribute('data-index', markerValue);
-    markerValue++;
-  });
-}
-
-updateMarkers(document.querySelector("#question1-container"));
-updateMarkers(document.querySelector("#question2-container"));

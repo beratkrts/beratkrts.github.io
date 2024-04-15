@@ -1,63 +1,68 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
+  background-color: #f9f9f9;
   margin: 0;
-  padding: 20px;
+  padding: 0;
 }
 
-h2 {
+header {
+  background-color: #333;
+  color: #fff;
   text-align: center;
-  color: #333;
-  margin-top: 30px;
+  padding: 20px 0;
 }
 
-.card-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.card {
-  width: 200px;
-  height: 60px;
+main {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
   background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  margin: 10px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: grab;
-  transition: transform 0.3s ease-in-out;
-  position: relative; /* Position relative for marker */
-  touch-action: none; /* Disable default touch actions */
-}
-
-.card p {
-  margin: 0;
-  font-size: 18px;
-}
-
-.card:hover {
+  border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transform: translateY(-5px);
 }
 
-.card::before {
-
-    content: attr(data-index); /* Use data attribute for marker value */
-  counter-increment: none; /* Remove counter-increment */
-  position: absolute; /* Position the marker */
-  top: -20px; /* Adjust position */
-  left: -20px; /* Adjust position */
-  background-color: #007bff; /* Marker background color */
-  color: #fff; /* Marker text color */
-  width: 20px; /* Marker width */
-  height: 20px; /* Marker height */
-  border-radius: 50%; /* Circular shape */
-  display: flex; /* Use flexbox for centering */
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
-
+.form-group {
+  margin-bottom: 20px;
 }
+
+label {
+  font-size: 18px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+button.btn-submit {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.btn-submit:hover {
+  background-color: #45a049;
+}
+
+.phones-list {
+  padding: 0;
+}
+
+.phones-list li {
+  margin-bottom: 10px;
+}
+
