@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Make a POST request to submit the survey
-    fetch('http://localhost:3000/submit-survey', {
+    fetch('https://young-waters-36328-80ace72c4544.herokuapp.com/submit-survey', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
