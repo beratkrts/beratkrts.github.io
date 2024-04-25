@@ -58,10 +58,20 @@ document.addEventListener('DOMContentLoaded', function() {
             phoneRankings: []
         };
 
+        const assignedValues = new Set(); // Set to store assigned values
+
         // Collect phone rankings
         for (let i = 0; i < phones.length; i++) {
             const input = document.getElementById(`phone${i}`);
             const value = parseInt(input.value);
+
+            // Check if the value is already assigned
+            if (assignedValues.has(value)) {
+                alert("Please assign different numbers for each cellphone.");
+                return; // Stop form submission
+            }
+
+            assignedValues.add(value);
             formData.phoneRankings.push(value);
         }
 
