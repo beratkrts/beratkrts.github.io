@@ -32,51 +32,50 @@ document.addEventListener('DOMContentLoaded', function() {
   form.addEventListener('submit', function(event) {
     event.preventDefault();
 
-      if (form.checkValidity()) {
-          // Disable the submit button to prevent multiple submissions
-          submitButton.disabled = true;
+    // Disable the submit button to prevent multiple submissions
+    const submitButton = form.querySelector('.btn-submit');
+    submitButton.disabled = true;
 
-          // Get survey data from the form
-          const formData = {
-              gender: document.getElementById('gender').value,
-              age: document.getElementById('age').value,
-              faculty: document.getElementById('faculty').value,
-              phoneRankings: []
-          };
+    // Get survey data from the form
+    const formData = {
+      gender: document.getElementById('gender').value,
+      age: document.getElementById('age').value,
+      faculty: document.getElementById('faculty').value,
+      phoneRankings: []
+    };
 
-          // Collect phone rankings
-          for (let i = 0; i < phones.length; i++) {
-              const input = document.getElementById(`phone${i}`);
-              const value = parseInt(input.value);
-              formData.phoneRankings.push(value);
-          }
+    // Collect phone rankings
+    for (let i = 0; i < phones.length; i++) {
+      const input = document.getElementById(`phone${i}`);
+      const value = parseInt(input.value);
+      formData.phoneRankings.push(value);
+    }
 
-          // Make a POST request to submit the survey
-          fetch('https://us-central1-survey2-89893.cloudfunctions.net/app/submit-survey', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(formData)
-          })
-              .then(response => {
-                  if (!response.ok) {
-                      throw new Error('Network response was not ok');
-                  }
-                  return response.text();
-              })
-              .then(data => {
-                  console.log(data); // Log success message from the server
-                  // Redirect to the acknowledgement page
-                  window.location.href = "acknowledgement.html";
-              })
-              .catch(error => {
-                  console.error('Error submitting survey:', error.message);
-                  // Re-enable the submit button in case of error
-                  submitButton.disabled = false;
-                  // Handle error - display a message to the user or perform any other action
-                  alert('Error submitting survey. Please try again later.');
-              });
+    // Make a POST request to submit the survey
+      fetch('https://us-central1-survey2-89893.cloudfunctions.net/app/submit-survey', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+      return response.text();
+    })
+    .then(data => {
+      console.log(data); // Log success message from the server
+      // Redirect to the acknowledgement page
+      window.location.href = "acknowledgement.html";
+    })
+    .catch(error => {
+      console.error('Error submitting survey:', error.message);
+      // Re-enable the submit button in case of error
+      submitButton.disabled = false;
+      // Handle error - display a message to the user or perform any other action
+      alert('Error submitting survey. Please try again later.');
+    });
   });
 });
