@@ -70,56 +70,68 @@ document.addEventListener('DOMContentLoaded', function() {
       coffeeRankings: []
     };
 
-    // Validate phone rankings
-    const assignedPhoneNumbers = new Set();
-    let isInvalid = false;
+      // Validate phone rankings
+      const assignedPhoneNumbers = new Set();
+      let isInvalid = false;
 
-    for (let i = 0; i < phones.length; i++) {
-      const input = document.getElementById(`phone${i}`);
-      const value = parseInt(input.value);
+      for (let i = 0; i < phones.length; i++) {
+          const input = document.getElementById(`phone${i}`);
+          const value = parseInt(input.value);
 
-      if (formData.phoneRankings.includes(value) || assignedPhoneNumbers.has(value)) {
-        isInvalid = true;
-        break;
+          // Check if the input value is a valid number
+          if (isNaN(value)) {
+              isInvalid = true;
+              break;
+          }
+
+          if (assignedPhoneNumbers.has(value)) {
+              isInvalid = true;
+              break;
+          }
+
+          if (value < 1 || value > 16) {
+              isInvalid = true;
+              break;
+          }
+
+          assignedPhoneNumbers.add(value);
+          formData.phoneRankings.push(value);
       }
 
-      if (value < 1 || value > 16 || isNaN(value)) {
-        isInvalid = true;
-        break;
+      // Validate coffee rankings
+      const assignedCoffeeNumbers = new Set();
+
+      for (let i = 0; i < coffee.length; i++) {
+          const input = document.getElementById(`coffee${i}`);
+          const value = parseInt(input.value);
+
+          // Check if the input value is a valid number
+          if (isNaN(value)) {
+              isInvalid = true;
+              break;
+          }
+
+          if (assignedCoffeeNumbers.has(value)) {
+              isInvalid = true;
+              break;
+          }
+
+          if (value < 1 || value > 16) {
+              isInvalid = true;
+              break;
+          }
+
+          assignedCoffeeNumbers.add(value);
+          formData.coffeeRankings.push(value);
       }
 
-      assignedPhoneNumbers.add(value);
-      formData.phoneRankings.push(value);
-    }
-
-    // Validate coffee rankings
-    const assignedCoffeeNumbers = new Set();
-
-    for (let i = 0; i < coffee.length; i++) {
-      const input = document.getElementById(`coffee${i}`);
-      const value = parseInt(input.value);
-
-      if (formData.coffeeRankings.includes(value) || assignedCoffeeNumbers.has(value)) {
-        isInvalid = true;
-        break;
+      if (isInvalid ||
+          assignedPhoneNumbers.size !== formData.phoneRankings.length ||
+          assignedCoffeeNumbers.size !== formData.coffeeRankings.length) {
+          submitButton.disabled = false;
+          alert('Please assign unique numbers from 1 to 16 to each item.');
+          return;
       }
-
-      if (value < 1 || value > 16 || isNaN(value)) {
-        isInvalid = true;
-        break;
-      }
-
-      assignedCoffeeNumbers.add(value);
-      formData.coffeeRankings.push(value);
-    }
-
-    if (isInvalid ||
-      assignedPhoneNumbers.size !== formData.phoneRankings.length ||
-      assignedCoffeeNumbers.size !== formData.coffeeRankings.length) {
-      submitButton.disabled = false;
-      alert('Please assign unique numbers from 1 to 16 to each item.');
-      return;
-    }
 
     // Make a POST request to submit the survey
     fetch('https://us-central1-survey2-89893.cloudfunctions.net/app/submit-survey', {
