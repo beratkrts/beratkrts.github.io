@@ -66,3 +66,35 @@ button.btn-submit:hover {
   margin-bottom: 10px;
 }
 
+
+body.acknowledgement-page {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+body.acknowledgement-page header {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+body.acknowledgement-page main {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+body.acknowledgement-page .acknowledgement-message {
+  text-align: center;
+}
+
+body.acknowledgement-page .acknowledgement-message p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}

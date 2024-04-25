@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(data => {
       console.log(data); // Log success message from the server
-      form.reset();
+      // Redirect to the acknowledgement page
+      window.location.href = "acknowledgement.html";
     })
     .catch(error => {
       console.error('Error submitting survey:', error.message);
