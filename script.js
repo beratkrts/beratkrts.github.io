@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Make a POST request to submit the survey
-      fetch('https://young-waters-36328-80ace72c4544.herokuapp.com/submit-survey', {
+      fetch('https://us-central1-survey2-89893.cloudfunctions.net/app/submit-survey', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
