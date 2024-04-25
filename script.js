@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     "Samsung, 256 GB, 8 GB RAM, 80000 TL"
   ];
 
-  const form = document.getElementById('surveyForm');
+   const form = document.getElementById('surveyForm');
 
   phones.forEach((phone, index) => {
     const listItem = document.createElement('li');
@@ -45,14 +45,39 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Collect phone rankings
+    const assignedNumbers = new Set(); // Set to store assigned numbers
+    let isInvalid = false;
+
     for (let i = 0; i < phones.length; i++) {
       const input = document.getElementById(`phone${i}`);
       const value = parseInt(input.value);
+
+      if (formData.phoneRankings.includes(value)) {
+        // If the same number is assigned to different phones, mark it as invalid
+        isInvalid = true;
+        break;
+      }
+
+      if (value < 1 || value > 16 || isNaN(value)) {
+        // If the assigned number is not within the valid range or is not a number, mark it as invalid
+        isInvalid = true;
+        break;
+      }
+
+      // Add the assigned number to the set
+      assignedNumbers.add(value);
       formData.phoneRankings.push(value);
     }
 
+    if (isInvalid || assignedNumbers.size !== formData.phoneRankings.length) {
+      // If there are invalid assignments or duplicate numbers, enable the submit button and do not proceed with form submission
+      submitButton.disabled = false;
+      alert('Please assign unique numbers from 1 to 16 to each phone.');
+      return;
+    }
+
     // Make a POST request to submit the survey
-      fetch('https://us-central1-survey2-89893.cloudfunctions.net/app/submit-survey', {
+    fetch('https://us-central1-survey2-89893.cloudfunctions.net/app/submit-survey', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
