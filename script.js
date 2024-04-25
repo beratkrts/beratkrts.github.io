@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
   form.addEventListener('submit', function(event) {
     event.preventDefault();
 
+    // Disable the submit button to prevent multiple submissions
+    submitButton.disabled = true;
+
     // Get survey data from the form
     const formData = {
       gender: document.getElementById('gender').value,
@@ -68,6 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(error => {
       console.error('Error submitting survey:', error.message);
+      // Re-enable the submit button in case of error
+      submitButton.disabled = false;
       // Handle error - display a message to the user or perform any other action
       alert('Error submitting survey. Please try again later.');
     });
