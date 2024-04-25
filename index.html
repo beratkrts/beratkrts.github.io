@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cellphone Preference Survey</title>
+  <title>Survey Form</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <h1>Cellphone Preference Survey</h1>
+    <h1>Survey Form</h1>
   </header>
   <main>
     <form id="surveyForm" action="/submit-survey" method="POST">
@@ -43,7 +43,11 @@
         </select>
       </div>
       <h2>Rank the following cellphones by assigning them to numbers from 1 to 16. Please assign different numbers for each cellphone. Note: "1" for your most favorite, "16" for the least. </h2>
-      <ol id="phonesList" class="phones-list">
+      <ol id="phonesList" class="rankings-list">
+        <!-- JavaScript will populate this list -->
+      </ol>
+      <h2>Rank the following coffee options by assigning them to numbers from 1 to 16. Please assign different numbers for each option. Note: "1" for your most favorite, "16" for the least. </h2>
+      <ol id="coffeeList" class="rankings-list">
         <!-- JavaScript will populate this list -->
       </ol>
       <button type="submit" class="btn-submit">Submit</button>

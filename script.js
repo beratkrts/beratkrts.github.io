@@ -17,17 +17,42 @@ document.addEventListener('DOMContentLoaded', function() {
     "Samsung, 512 GB, 8 GB RAM, 80000 TL",
     "Samsung, 256 GB, 8 GB RAM, 80000 TL"
   ];
+  const coffee = [
+      "Starbucks, Sugary-flavored, Ice, 75 TL",
+      "Starbucks, Sugary-flavored, Ice,105 TL",
+      "EspressoLab, Sugary-flavored, Ice, 75 TL",
+      "EspressoLab, Sugary-flavored, Ice, 105 TL",
+      "Starbucks, Classic-strong, Ice, 75 TL",
+      "Starbucks, Classic-strong, Ice, 105TL",
+      "EspressoLab, Classic-strong, Ice, 75 TL",
+      "EspressoLab, Classic-strong, Ice, 105TL",
+      "Starbucks, Sugary-flavored, Hot, 75 TL",
+      "Starbucks, Sugary-flavored, Hot,105 TL",
+      "EspressoLab, Sugary-flavored, Hot, 75 TL",
+      "EspressoLab, Sugary-flavored, Hot, 105 TL",
+      "Starbucks, Classic-strong, Hot, 75 TL",
+      "Starbucks, Classic-strong, Hot, 105TL",
+      "EspressoLab, Classic-strong, Hot, 75 TL",
+      "EspressoLab, Classic-strong, Hot, 105TL",
+  ]
 
-   const form = document.getElementById('surveyForm');
+  const form = document.getElementById('surveyForm');
 
-  phones.forEach((phone, index) => {
-    const listItem = document.createElement('li');
-    listItem.innerHTML = `
-      <label for="phone${index}">${phone}</label>
-      <input type="number" id="phone${index}" name="phone${index}" min="1" max="16" required>
-    `;
-    phonesList.appendChild(listItem);
-  });
+  // Function to generate list items for phones and coffee
+  function generateListItems(items, listElement) {
+    items.forEach((item, index) => {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `
+        <label for="${listElement.id}${index}">${item}</label>
+        <input type="number" id="${listElement.id}${index}" name="${listElement.id}${index}" min="1" max="16" required>
+      `;
+      listElement.appendChild(listItem);
+    });
+  }
+
+  // Generate list items for phones and coffee
+  generateListItems(phones, phonesList);
+  generateListItems(coffee, coffeeList);
 
   form.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -41,38 +66,58 @@ document.addEventListener('DOMContentLoaded', function() {
       gender: document.getElementById('gender').value,
       age: document.getElementById('age').value,
       faculty: document.getElementById('faculty').value,
-      phoneRankings: []
+      phoneRankings: [],
+      coffeeRankings: []
     };
 
-    // Collect phone rankings
-    const assignedNumbers = new Set(); // Set to store assigned numbers
+    // Validate phone rankings
+    const assignedPhoneNumbers = new Set();
     let isInvalid = false;
 
     for (let i = 0; i < phones.length; i++) {
       const input = document.getElementById(`phone${i}`);
       const value = parseInt(input.value);
 
-      if (formData.phoneRankings.includes(value)) {
-        // If the same number is assigned to different phones, mark it as invalid
+      if (formData.phoneRankings.includes(value) || assignedPhoneNumbers.has(value)) {
         isInvalid = true;
         break;
       }
 
       if (value < 1 || value > 16 || isNaN(value)) {
-        // If the assigned number is not within the valid range or is not a number, mark it as invalid
         isInvalid = true;
         break;
       }
 
-      // Add the assigned number to the set
-      assignedNumbers.add(value);
+      assignedPhoneNumbers.add(value);
       formData.phoneRankings.push(value);
     }
 
-    if (isInvalid || assignedNumbers.size !== formData.phoneRankings.length) {
-      // If there are invalid assignments or duplicate numbers, enable the submit button and do not proceed with form submission
+    // Validate coffee rankings
+    const assignedCoffeeNumbers = new Set();
+
+    for (let i = 0; i < coffee.length; i++) {
+      const input = document.getElementById(`coffee${i}`);
+      const value = parseInt(input.value);
+
+      if (formData.coffeeRankings.includes(value) || assignedCoffeeNumbers.has(value)) {
+        isInvalid = true;
+        break;
+      }
+
+      if (value < 1 || value > 16 || isNaN(value)) {
+        isInvalid = true;
+        break;
+      }
+
+      assignedCoffeeNumbers.add(value);
+      formData.coffeeRankings.push(value);
+    }
+
+    if (isInvalid ||
+      assignedPhoneNumbers.size !== formData.phoneRankings.length ||
+      assignedCoffeeNumbers.size !== formData.coffeeRankings.length) {
       submitButton.disabled = false;
-      alert('Please assign unique numbers from 1 to 16 to each phone.');
+      alert('Please assign unique numbers from 1 to 16 to each item.');
       return;
     }
 
@@ -92,14 +137,11 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(data => {
       console.log(data); // Log success message from the server
-      // Redirect to the acknowledgement page
-      window.location.href = "acknowledgement.html";
+      window.location.href = "acknowledgement.html"; // Redirect to the acknowledgement page
     })
     .catch(error => {
       console.error('Error submitting survey:', error.message);
-      // Re-enable the submit button in case of error
       submitButton.disabled = false;
-      // Handle error - display a message to the user or perform any other action
       alert('Error submitting survey. Please try again later.');
     });
   });
