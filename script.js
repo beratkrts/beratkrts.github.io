@@ -1,64 +1,95 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const phones = [
-    "Apple, 512 GB, 12 GB RAM, 50000 TL",
-    "Apple, 256GB, 12 GB RAM, 50000 TL",
-    "Apple, 512 GB, 8 GB RAM, 50000 TL",
-    "Apple, 256 GB, 8 GB RAM, 50000 TL",
-    "Apple, 512 GB, 12 GB RAM, 80000 TL",
-    "Apple, 256GB, 12 GB RAM, 80000 TL",
-    "Apple, 512 GB, 8 GB RAM, 80000 TL",
-    "Apple, 256 GB, 8 GB RAM, 80000 TL",
-    "Samsung, 512 GB, 12 GB RAM, 50000 TL",
-    "Samsung, 256GB, 12 GB RAM, 50000 TL",
-    "Samsung, 512 GB, 8 GB RAM, 50000 TL",
-    "Samsung, 256 GB, 8 GB RAM, 50000 TL",
-    "Samsung, 512 GB, 12 GB RAM, 80000 TL",
-    "Samsung, 256GB, 12 GB RAM, 80000 TL",
-    "Samsung, 512 GB, 8 GB RAM, 80000 TL",
-    "Samsung, 256 GB, 8 GB RAM, 80000 TL"
-  ];
-  const coffee = [
-      "Starbucks, Sugary-flavored, Ice, 75 TL",
-      "Starbucks, Sugary-flavored, Ice,105 TL",
-      "EspressoLab, Sugary-flavored, Ice, 75 TL",
-      "EspressoLab, Sugary-flavored, Ice, 105 TL",
-      "Starbucks, Classic-strong, Ice, 75 TL",
-      "Starbucks, Classic-strong, Ice, 105TL",
-      "EspressoLab, Classic-strong, Ice, 75 TL",
-      "EspressoLab, Classic-strong, Ice, 105TL",
-      "Starbucks, Sugary-flavored, Hot, 75 TL",
-      "Starbucks, Sugary-flavored, Hot,105 TL",
-      "EspressoLab, Sugary-flavored, Hot, 75 TL",
-      "EspressoLab, Sugary-flavored, Hot, 105 TL",
-      "Starbucks, Classic-strong, Hot, 75 TL",
-      "Starbucks, Classic-strong, Hot, 105TL",
-      "EspressoLab, Classic-strong, Hot, 75 TL",
-      "EspressoLab, Classic-strong, Hot, 105TL",
-  ]
+document.addEventListener('DOMContentLoaded', function () {
+    const phones = [
+        "Apple, 512 GB, 12 GB RAM, 50000 TL",
+        "Apple, 256GB, 12 GB RAM, 50000 TL",
+        "Apple, 512 GB, 8 GB RAM, 50000 TL",
+        "Apple, 256 GB, 8 GB RAM, 50000 TL",
+        "Apple, 512 GB, 12 GB RAM, 80000 TL",
+        "Apple, 256GB, 12 GB RAM, 80000 TL",
+        "Apple, 512 GB, 8 GB RAM, 80000 TL",
+        "Apple, 256 GB, 8 GB RAM, 80000 TL",
+        "Samsung, 512 GB, 12 GB RAM, 50000 TL",
+        "Samsung, 256GB, 12 GB RAM, 50000 TL",
+        "Samsung, 512 GB, 8 GB RAM, 50000 TL",
+        "Samsung, 256 GB, 8 GB RAM, 50000 TL",
+        "Samsung, 512 GB, 12 GB RAM, 80000 TL",
+        "Samsung, 256GB, 12 GB RAM, 80000 TL",
+        "Samsung, 512 GB, 8 GB RAM, 80000 TL",
+        "Samsung, 256 GB, 8 GB RAM, 80000 TL"
+    ];
+    const coffees = [
+        "Starbucks, Sugary-flavored, Ice, 75 TL",
+        "Starbucks, Sugary-flavored, Ice, 105 TL",
+        "EspressoLab, Sugary-flavored, Ice, 75 TL",
+        "EspressoLab, Sugary-flavored, Ice, 105 TL",
+        "Starbucks, Classic-strong, Ice, 75 TL",
+        "Starbucks, Classic-strong, Ice, 105 TL",
+        "EspressoLab, Classic-strong, Ice, 75 TL",
+        "EspressoLab, Classic-strong, Ice, 105 TL",
+        "Starbucks, Sugary-flavored, Hot, 75 TL",
+        "Starbucks, Sugary-flavored, Hot, 105 TL",
+        "EspressoLab, Sugary-flavored, Hot, 75 TL",
+        "EspressoLab, Sugary-flavored, Hot, 105 TL",
+        "Starbucks, Classic-strong, Hot, 75 TL",
+        "Starbucks, Classic-strong, Hot, 105 TL",
+        "EspressoLab, Classic-strong, Hot, 75 TL",
+        "EspressoLab, Classic-strong, Hot, 105 TL",
+    ];
 
     const form = document.getElementById('surveyForm');
+    const submitButton = document.querySelector('.btn-submit');
 
-    phones.forEach((phone, index) => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-      <label for="phone${index}">${phone}</label>
-      <input type="number" id="phone${index}" name="phone${index}" min="1" max="16" required>
-    `;
-        phonesList.appendChild(listItem);
-    });
+    // Function to populate the list of phones
+    function populatePhonesList() {
+        const phonesList = document.getElementById('phonesList');
+        phonesList.innerHTML = ""; // Clear previous content
+
+        phones.forEach((phone, index) => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <label for="phone${index}">${phone}</label>
+                <input type="number" id="phone${index}" name="phone${index}" min="1" max="${phones.length}" required>
+            `;
+            phonesList.appendChild(listItem);
+        });
+    }
+
+    // Function to populate the list of coffees
+    function populateCoffeesList() {
+        const coffeesList = document.getElementById('coffeesList');
+        coffeesList.innerHTML = ""; // Clear previous content
+
+        coffees.forEach((coffee, index) => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <label for="coffee${index}">${coffee}</label>
+                <input type="number" id="coffee${index}" name="coffee${index}" min="1" max="${coffees.length}" required>
+            `;
+            coffeesList.appendChild(listItem);
+        });
+    }
+
+    // Call the functions to populate the lists
+    populatePhonesList();
+    populateCoffeesList();
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
+
+        // Disable the submit button to prevent multiple submissions
+        submitButton.disabled = true;
 
         // Get survey data from the form
         const formData = {
             gender: document.getElementById('gender').value,
             age: document.getElementById('age').value,
             faculty: document.getElementById('faculty').value,
-            phoneRankings: []
+            phoneRankings: [],
+            coffeeRankings: []
         };
 
-        const assignedValues = new Set(); // Set to store assigned values
+        const assignedPhoneValues = new Set(); // Set to store assigned phone values
+        const assignedCoffeeValues = new Set(); // Set to store assigned coffee values
 
         // Collect phone rankings
         for (let i = 0; i < phones.length; i++) {
@@ -66,13 +97,30 @@ document.addEventListener('DOMContentLoaded', function() {
             const value = parseInt(input.value);
 
             // Check if the value is already assigned
-            if (assignedValues.has(value)) {
+            if (assignedPhoneValues.has(value)) {
                 alert("Please assign different numbers for each cellphone.");
+                submitButton.disabled = false; // Re-enable the submit button
                 return; // Stop form submission
             }
 
-            assignedValues.add(value);
+            assignedPhoneValues.add(value);
             formData.phoneRankings.push(value);
+        }
+
+        // Collect coffee rankings
+        for (let i = 0; i < coffees.length; i++) {
+            const input = document.getElementById(`coffee${i}`);
+            const value = parseInt(input.value);
+
+            // Check if the value is already assigned
+            if (assignedCoffeeValues.has(value)) {
+                alert("Please assign different numbers for each coffee.");
+                submitButton.disabled = false; // Re-enable the submit button
+                return; // Stop form submission
+            }
+
+            assignedCoffeeValues.add(value);
+            formData.coffeeRankings.push(value);
         }
 
         // Make a POST request to submit the survey
@@ -97,8 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Error submitting survey:', error.message);
                 // Handle error - display a message to the user or perform any other action
                 alert('Error submitting survey. Please try again later.');
+                submitButton.disabled = false; // Re-enable the submit button
             });
     });
 });
-
-    

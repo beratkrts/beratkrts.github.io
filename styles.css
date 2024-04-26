@@ -1,69 +1,71 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  margin: 0;
-  padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
 }
 
 header {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 20px 0;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
 }
 
 main {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 50px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 50px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 label {
-  font-size: 18px;
-  display: block;
-  margin-bottom: 5px;
+    font-size: 18px;
+    display: block;
+    margin-bottom: 5px;
 }
 
 input[type="number"],
 select {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 button.btn-submit {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button.btn-submit:hover {
-  background-color: #45a049;
+    background-color: #45a049;
 }
 
-.phones-list {
-  padding: 0;
+.phones-list,
+.coffees-list {
+    padding: 0;
 }
 
-.phones-list li {
-  margin-bottom: 10px;
+.phones-list li,
+.coffees-list li {
+    margin-bottom: 10px;
 }
 
 body.acknowledgement-page {
