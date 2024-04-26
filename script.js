@@ -18,22 +18,22 @@ document.addEventListener('DOMContentLoaded', function () {
         "Samsung, 256 GB, 8 GB RAM, 80000 TL"
     ];
     const coffees = [
-        "Starbucks, Sugary-flavored, Ice, 75 TL",
-        "Starbucks, Sugary-flavored, Ice, 105 TL",
-        "EspressoLab, Sugary-flavored, Ice, 75 TL",
-        "EspressoLab, Sugary-flavored, Ice, 105 TL",
-        "Starbucks, Classic-strong, Ice, 75 TL",
-        "Starbucks, Classic-strong, Ice, 105 TL",
-        "EspressoLab, Classic-strong, Ice, 75 TL",
-        "EspressoLab, Classic-strong, Ice, 105 TL",
-        "Starbucks, Sugary-flavored, Hot, 75 TL",
-        "Starbucks, Sugary-flavored, Hot, 105 TL",
-        "EspressoLab, Sugary-flavored, Hot, 75 TL",
-        "EspressoLab, Sugary-flavored, Hot, 105 TL",
-        "Starbucks, Classic-strong, Hot, 75 TL",
-        "Starbucks, Classic-strong, Hot, 105 TL",
-        "EspressoLab, Classic-strong, Hot, 75 TL",
-        "EspressoLab, Classic-strong, Hot, 105 TL",
+        "Starbucks, Sugary-flavored, Ice, 75 TL (Medium)",
+        "Starbucks, Sugary-flavored, Ice, 105 TL (Large)",
+        "EspressoLab, Sugary-flavored, Ice, 75 TL (Medium)",
+        "EspressoLab, Sugary-flavored, Ice, 105 TL (Large)",
+        "Starbucks, Classic-strong, Ice, 75 TL (Medium)",
+        "Starbucks, Classic-strong, Ice, 105 TL (Large)",
+        "EspressoLab, Classic-strong, Ice, 75 TL (Medium)",
+        "EspressoLab, Classic-strong, Ice, 105 TL (Large)",
+        "Starbucks, Sugary-flavored, Hot, 75 TL (Medium)",
+        "Starbucks, Sugary-flavored, Hot, 105 TL (Large)",
+        "EspressoLab, Sugary-flavored, Hot, 75 TL (Medium)",
+        "EspressoLab, Sugary-flavored, Hot, 105 TL (Large)",
+        "Starbucks, Classic-strong, Hot, 75 TL (Medium)",
+        "Starbucks, Classic-strong, Hot, 105 TL (Large)",
+        "EspressoLab, Classic-strong, Hot, 75 TL (Medium)",
+        "EspressoLab, Classic-strong, Hot, 105 TL (Large)",
     ];
 
     const form = document.getElementById('surveyForm');
